@@ -45,30 +45,45 @@ function playRound(playerSelection, computerSelection) {
 // let playerSc = 0;
 // let computerSc = 0;
 
-for(let i = 0; i < 5; i++) {
-    const player = 'paper';
-    const computer = getComputerChoice();
-    // let roundResult = playRound(player, computer);
-    playRound(player, computer);
-    // game(roundResult);
-    // if(playerWin) {
-    //     playerSc++;
-    //     console.log('playerSc:', playerSc);
-    // } else if(computerWin) {
-    //     computerSc++;
-    //     console.log('computerSc:', computerSc);
-    // }
-}
+// for(let i = 0; i < 5; i++) {
+//     const player = 'paper';
+//     // let roundResult = playRound(player, computer);
+//     // game(roundResult);
+//     // if(playerWin) {
+//         //     playerSc++;
+//         //     console.log('playerSc:', playerSc);
+//         // } else if(computerWin) {
+//             //     computerSc++;
+//             //     console.log('computerSc:', computerSc);
+//             // }
+// }
+
+const computer = getComputerChoice();
 
 function playerChoice() {
-    let buttons = document.querySelectorAll('.elem');
-    
+    let buttons = document.querySelectorAll('button'); 
     buttons.forEach((button) => {
-        button.addEventListener('click')
+        button.addEventListener('click', () => {
+            let option = button.name;
+            playRound(option, computer);
+            // return option;
+        })
     })
 }
 
 playerChoice();
+
+// playRound(playerChoice, getComputerChoice);
+        
+// function game() {
+//     buttons.forEach((button) => {
+//         button.addEventListener('click', () => {
+//             playRound(playerChoice, computer);
+//         });
+//     });
+// }
+
+// game();
 
 // function game(result) {
 //     let playerScore = document.getElementById('player-score');
