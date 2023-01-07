@@ -1,5 +1,5 @@
-let playerSc = 0;
-let computerSc = 0;
+// let playerSc = 0;
+// let computerSc = 0;
 
 function getComputerChoice() {
     arr = ['rock', 'paper', 'scissor'];
@@ -7,134 +7,79 @@ function getComputerChoice() {
     console.log(random);
     return random;
 }
- 
-// const player = 'paper';
-// const computer = getComputerChoice();
-
 
 function playRound(playerSelection, computerSelection) {
+    let playerScore = document.getElementById('player-score');
+    let computerScore = document.getElementById('computer-score');
     let message = document.querySelector('.message');
-    let tie = 'tie', 
-        playerWin = 'playerWin', 
-        computerWin = 'computerWin';
 
+    let tie = 'tie';
+    let playerWin = 'playerWin';
+    let computerWin = 'computerWin';
+        
     if(playerSelection === computerSelection) {
         message.textContent = "It's a tie";
-        console.log("computerSc:", computerSc, "playerSc:", playerSc);
+        playerScore.textContent = `${playerSc}`;
+        computerScore.textContent = `${computerSc}`;
         return tie;
     } else if((playerSelection === 'rock' && computerSelection === 'scissor')
     || (playerSelection === 'paper' && computerSelection === 'rock')
     || (playerSelection === 'scissor' && computerSelection === 'paper')) {
         message.textContent = `You won! ${playerSelection} beats ${computerSelection}`;
-        playerSc = ++playerSc;
-        console.log("computerSc:", computerSc, "playerSc:", playerSc);
+        playerSc++;
+        playerScore.textContent = `${playerSc}`;
+        computerScore.textContent = `${computerSc}`;
         return playerWin;
     } else {
-        computerSc = ++computerSc;
-        console.log("computerSc:", computerSc, "playerSc:", playerSc);
+        computerSc++;
         message.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
+        playerScore.textContent = `${playerSc}`;
+        computerScore.textContent = `${computerSc}`;
         return computerWin;
     }
 }
 
-
-// function game() {
-//     console.log(playRound(player, computer));
-// }
-
-// let playerSc = 0;
-// let computerSc = 0;
-
-// for(let i = 0; i < 5; i++) {
-//     const player = 'paper';
-//     // let roundResult = playRound(player, computer);
-//     // game(roundResult);
-//     // if(playerWin) {
-//         //     playerSc++;
-//         //     console.log('playerSc:', playerSc);
-//         // } else if(computerWin) {
-//             //     computerSc++;
-//             //     console.log('computerSc:', computerSc);
-//             // }
-// }
-
-const computer = getComputerChoice();
-
 function playerChoice() {
     let buttons = document.querySelectorAll('button'); 
+
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
+            const computer = getComputerChoice();
             let option = button.name;
             playRound(option, computer);
-            // return option;
+            if(playerSc === 5 || computerSc === 5) {
+                endGame();
+            }
         })
     })
 }
 
-playerChoice();
+function endGame() {
+    let elem = document.querySelector('.elements');
+    let try_again = document.querySelector('.try-again');
+    let message = document.querySelector('.message');
+    elem.style.display = 'none';
+    try_again.style.display = 'inline-block';
+    const retry = () => {
+        // playerSc = 0;
+        // computerSc = 0;
+        try_again.addEventListener('click', () => {
+            message.textContent = '';
+            try_again.style.display = 'none';
+            elem.style.display = 'flex';
+        })
+    }
+    retry();
+    playerSc = 0;
+    computerSc = 0;
+    playerChoice();
+}
 
-// playRound(playerChoice, getComputerChoice);
-        
-// function game() {
-//     buttons.forEach((button) => {
-//         button.addEventListener('click', () => {
-//             playRound(playerChoice, computer);
-//         });
-//     });
-// }
+function game() {
+    playerSc = 0;
+    computerSc = 0;
+    playerChoice();
 
-// game();
+}
 
-// function game(result) {
-//     let playerScore = document.getElementById('player-score');
-//     let computerScore = document.getElementById('computer-score');
-//     // let playerSc = 0;
-//     // let computerSc = 0;
-//     if(result === playerWin) {
-//         playerSc++;
-//         console.log("computerSc:", computerSc, "playerSc:", playerSc);
-//         // console.log('playerSc:', playerSc);
-//     } else if(result === computerWin) {
-//         computerSc++;
-//         console.log("computerSc:", computerSc, "playerSc:", playerSc);
-//         // console.log('computerSc:', computerSc);
-//     } else {
-//         console.log("computerSc:", computerSc, "playerSc:", playerSc);
-//         return computerSc, playerSc;
-//     }
-
-    // playerScore.textContent = `${playerSc}`;
-    // computerScore.textContent = `${computerSc}`;
-    // for(let i = 0; i < 5; i++) {
-    //     playRound(player, computer);
-    //     console.log(playRound(player, computer));
-    // }
-    // console.log(playRound(player, computer));
-// }
-
-// game();
-
-// function game() {
-//     let playerScore = document.getElementById('player-score');
-//     let computerScore = document.getElementById('computer-score');
-    
-//     let computerSc = 0;
-//     let playerSc = 0;
-    
-//     if(playerWin) {
-//         playerSc++;
-//         console.log(playerSc);
-//     }
-//     else if(computerWin) {
-//         computerSc++;
-//         console.log(computerSc);
-//     }
-    
-//     playerScore.textContent = `${playerSc}`;
-//     computerScore.textContent = `${computerSc}`;
-// }
-
-// game();
-
-// how to keep the score?
-
+game();
