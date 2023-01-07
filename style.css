@@ -48,6 +48,20 @@ h1 {
     cursor: pointer;
 }
 
+.try-again {
+    display: none;
+    position: inline-block;
+    margin: auto;
+    font-size: 24px;
+    padding: 18px 30px;
+    background-color:rgb(93, 186, 155);
+    transition: all 0.5s;
+}
+
+.try-again:hover {
+    transform: scale(1.1);
+}
+
 .score {
     display: flex;
     justify-content: space-around;
