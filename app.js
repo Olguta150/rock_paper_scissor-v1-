@@ -1,5 +1,10 @@
-// let playerSc = 0;
-// let computerSc = 0;
+let playerScore = document.getElementById('player-score');
+let computerScore = document.getElementById('computer-score');
+let message = document.querySelector('.message');
+let elem = document.querySelector('.elements');
+
+let playerSc = 0;
+let computerSc = 0;
 
 function getComputerChoice() {
     arr = ['rock', 'paper', 'scissor'];
@@ -9,10 +14,6 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    let playerScore = document.getElementById('player-score');
-    let computerScore = document.getElementById('computer-score');
-    let message = document.querySelector('.message');
-
     let tie = 'tie';
     let playerWin = 'playerWin';
     let computerWin = 'computerWin';
@@ -26,13 +27,13 @@ function playRound(playerSelection, computerSelection) {
     || (playerSelection === 'paper' && computerSelection === 'rock')
     || (playerSelection === 'scissor' && computerSelection === 'paper')) {
         message.textContent = `You won! ${playerSelection} beats ${computerSelection}`;
-        playerSc++;
+        playerSc += 1;
         playerScore.textContent = `${playerSc}`;
         computerScore.textContent = `${computerSc}`;
         return playerWin;
     } else {
-        computerSc++;
         message.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
+        computerSc +=1;
         playerScore.textContent = `${playerSc}`;
         computerScore.textContent = `${computerSc}`;
         return computerWin;
@@ -40,13 +41,13 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function playerChoice() {
-    let buttons = document.querySelectorAll('button'); 
+    let buttons = document.querySelectorAll('.elem'); 
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             const computer = getComputerChoice();
-            let option = button.name;
-            playRound(option, computer);
+            let player = button.name;
+            playRound(player, computer);
             if(playerSc === 5 || computerSc === 5) {
                 endGame();
             }
@@ -55,31 +56,39 @@ function playerChoice() {
 }
 
 function endGame() {
-    let elem = document.querySelector('.elements');
     let try_again = document.querySelector('.try-again');
-    let message = document.querySelector('.message');
+
     elem.style.display = 'none';
     try_again.style.display = 'inline-block';
+    playerSc = 0;
+    computerSc = 0;
     const retry = () => {
-        // playerSc = 0;
-        // computerSc = 0;
         try_again.addEventListener('click', () => {
             message.textContent = '';
             try_again.style.display = 'none';
             elem.style.display = 'flex';
+            playerSc = 0;
+            computerSc = 0;
+            playerScore.textContent = `${playerSc}`;
+            computerScore.textContent = `${computerSc}`;
         })
     }
     retry();
-    playerSc = 0;
-    computerSc = 0;
-    playerChoice();
 }
 
 function game() {
-    playerSc = 0;
-    computerSc = 0;
-    playerChoice();
+    let description = document.querySelector('.description');
+    let start = document.querySelector('.start');
+    let score = document.querySelector('.score');
 
+    start.addEventListener('click', () => {
+        description.style.display = 'none';
+        start.style.display = 'none';
+        score.style.display = 'flex';
+        elem.style.display = 'flex';
+    })
+
+    playerChoice();
 }
 
 game();
